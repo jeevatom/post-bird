@@ -1,0 +1,37 @@
+.loading-screen {
+  height: 100vh;
+  background-color: #eaf6ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.bird {
+  font-size: 4rem;
+  animation: float 1.5s ease-in-out infinite, flap 0.5s infinite alternate;
+}
+
+.loading-text {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #0d6efd;
+  font-weight: 500;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes flap {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(15deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
