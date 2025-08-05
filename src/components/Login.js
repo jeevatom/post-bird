@@ -73,7 +73,7 @@ export default function AuthCard() {
             setShowModal(true);
             return;
         }
-
+        setIsLoading(true);
         try {
             const payload = {
                 username: registeremail,
@@ -86,7 +86,9 @@ export default function AuthCard() {
         } catch (err) {
             setErrorModalMsg(err.message || 'Register failed');
             setShowModal(true);
-        }
+        }finally{
+               setIsLoading(false);
+        };
     };
 
     const handleOTPSuccess = () => {
@@ -169,7 +171,7 @@ export default function AuthCard() {
                         )}
 
                         {view === 'otp' && (
-                            <OTPverification email={userEmail} onSuccess={handleOTPSuccess} />
+                            <OTPverification email={userEmail} onSuccess={handleOTPSuccess} setIsLoading={setIsLoading}/>
                         )}
 
                         {view === 'success' && (

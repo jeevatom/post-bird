@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { postData } from '../utils/API';
 import { useNavigate } from 'react-router-dom';
 
-export default function OTPverification({ email, onSuccess }) { // ✅ Accept onSuccess prop
+export default function OTPverification({ email, onSuccess,setIsLoading = () => {}}) { 
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -44,20 +44,20 @@ export default function OTPverification({ email, onSuccess }) { // ✅ Accept on
       setError('Enter all 6 digits of the OTP.');
       return;
     }
-
+    setIsLoading(true);
     try {
       setVerifying(true);
       const payload = { username: email, otp: otpValue };
       const response = await postData('user/verifyotp', payload);
-      
-      console.log('OTP Response:', response); // ✅ Debug log
-      
-      // ✅ Check for the actual API response format
+
+      console.log('OTP Response:', response);
+
+
       if (response?.message === 'Otp Verified' || response?.message?.toLowerCase().includes('verified')) {
         setSuccess(true);
         setError(''); // Clear any previous errors
-        
-        // ✅ Call the parent's success handler after a short delay to show success message
+
+
         setTimeout(() => {
           if (onSuccess) {
             onSuccess();
@@ -65,23 +65,24 @@ export default function OTPverification({ email, onSuccess }) { // ✅ Accept on
             // Fallback if no onSuccess prop provided
             navigate('/login');
           }
-        }, 2000); // Show success message for 2 seconds before calling parent
+        }, 2000);
       } else {
         setError(response?.message || 'OTP verification failed');
       }
     } catch (err) {
-      console.error('OTP Verification Error:', err); // ✅ Debug log
+      console.error('OTP Verification Error:', err);
       setError(err.message || 'Something went wrong');
     } finally {
       setVerifying(false);
+      setIsLoading(false);
     }
   };
 
   const handleResend = async () => {
     setOtp(['', '', '', '', '', '']);
-    setTimeLeft(300); // Restart timer
+    setTimeLeft(300);
     setResendVisible(false);
-    setError(''); // ✅ Clear any previous errors
+    setError('');
 
     try {
       const response = await postData('user/resendotp', { username: email });

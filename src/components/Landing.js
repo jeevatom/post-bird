@@ -10,7 +10,7 @@ const Landing = () => {
     return (
         <div
             style={{
-                minHeight: '10vh',
+                minHeight: '100vh',
                 background: 'linear-gradient(135deg, #e0f7ff 0%, #ffffff 100%)',
                 fontFamily: "'Segoe UI', sans-serif",
                 overflow: 'hidden',

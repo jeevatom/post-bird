@@ -7,10 +7,9 @@
   justify-content: center;
   font-family: 'Segoe UI', sans-serif;
 }
-
 .bird {
-  font-size: 4rem;
-  animation: float 1.5s ease-in-out infinite, flap 0.5s infinite alternate;
+  width: 80px;
+  animation: float 1.5s ease-in-out infinite;
 }
 
 .loading-text {
