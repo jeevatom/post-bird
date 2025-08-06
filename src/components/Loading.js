@@ -6,7 +6,7 @@ export default function LoadingBird() {
     <div className="loading-screen">
       <div className="bird"><img src="/images/bird2.png" alt="Bird" className="bird" />
 </div>
-      <div className="loading-text">PostBird is flying your data...</div>
+      <div className="loading-text fw-bold">PostBird is flying with your data...</div>
     </div>
   );
 }

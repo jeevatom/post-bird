@@ -40,7 +40,8 @@ export default function AuthCard() {
             };
 
             const response = await postData('user/login', payload);
-            const token = response.token;
+            const data = await response.json(); 
+            const token = data.token;
 
             if (!token) {
                 throw new Error('No Token Received. Please try again');
@@ -80,7 +81,12 @@ export default function AuthCard() {
                 password: registerpassword,
             };
 
-            await postData('user/signup', payload);
+           const responsecode = await postData('user/signup', payload);
+           if(responsecode.status === 208){
+           setErrorModalMsg('User Already Exists!');
+            setShowModal(true);
+            return false;
+           }
             setUserEmail(registeremail);
             setView('otp');
         } catch (err) {

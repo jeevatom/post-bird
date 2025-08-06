@@ -37,12 +37,7 @@ export const postData = async (endpoint, payload) => {
             },
             body: JSON.stringify(payload),
         });
-        console.log("response>>>>>"+response.status);
-          
-         
-         
-  
-        return await handleResponse(response);
+        return response;
 
     } catch (error) {
         console.error('POST error:', error.message);
