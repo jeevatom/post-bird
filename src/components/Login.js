@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState  ,useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Login.css';
 import { postData } from '../utils/API';
 import OTPverification from './OTPverification';
-import './Home';
+import './TokenGeneration';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import LoadingBird from './Loading';
@@ -24,6 +24,13 @@ export default function AuthCard() {
 
     const [errorModalMsg, setErrorModalMsg] = useState('');
     const navigate = useNavigate();
+
+      useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/home', { replace: true }); // optional fallback
+    }
+  }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -47,18 +54,16 @@ export default function AuthCard() {
                 throw new Error('No Token Received. Please try again');
             }
 
-            localStorage.setItem('jwtToken', token);
+            localStorage.setItem('token', token);
+            localStorage.setItem('email' , loginemail)
             const decoded = jwtDecode(token);
+             navigate('/Home', { replace: true });
 
-            console.log("decoded>>>>>", decoded)
+            // console.log("decoded>>>>>", decoded)
 
             setMessage(`Welcome  ${loginemail}!`);
             setView('success');
             setIsLoading(false);
-            // Wait 2 seconds and redirect
-            setTimeout(() => {
-                navigate('/home');
-            }, 2000);
 
         } catch (err) {
             console.log("login err", err)
@@ -139,7 +144,7 @@ export default function AuthCard() {
                                         onChange={(e) => setLoginPassword(e.target.value)}
                                     />
                                     <div className='text-center'>
-                                        <button type="submit" className="btn btn-outline-primary w-100">Sign In</button>
+                                        <button type="submit" className="btn btn-outline-primary w-100">Login In</button>
                                     </div>
                                 </form>
                                 <div className="text-center mt-4">

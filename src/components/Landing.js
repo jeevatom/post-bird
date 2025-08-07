@@ -1,10 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Landing = () => {
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
+    const [btnText, setBtnText] = useState('Sign In');
+    const [btnColor, setBtnColor] = useState('btn-success'); // Bootstrap: green
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setBtnText('Logout');
+            setBtnColor('btn-danger'); // Bootstrap: red
+        } else {
+            setBtnText('Sign In');
+            setBtnColor('btn-primary');
+        }
+    }, []);
+
+    const handleClick = () => {
+        if (btnText === 'Logout') {
+            localStorage.removeItem('token');
+            window.location.href = '/';
+        } else {
+            window.location.href = '/login';
+        }
+    };
+
+
 
 
     return (
@@ -66,8 +89,9 @@ const Landing = () => {
                 >
                     PostBird
                 </div>
-                <button  onClick={() => navigate('/login')}
-                    className="btn btn-primary mt-4"
+                
+                <button onClick={handleClick}
+                    className={`btn ${btnColor} btn-primary mt-4`}
                     style={{
                         border: 'none',
                         borderRadius: '40px',
@@ -75,8 +99,8 @@ const Landing = () => {
                         fontSize: '0.95rem',
                         fontWeight: '600',
                         letterSpacing: '0.7px',
-                        
-                        
+
+
                         boxShadow: '0 6px 14px rgba(0, 132, 255, 0.3), inset 0 0 6px rgba(255,255,255,0.15)',
                         transition: 'all 0.3s ease',
                         textTransform: 'uppercase',
@@ -92,7 +116,7 @@ const Landing = () => {
                         e.target.style.boxShadow = '0 6px 14px rgba(0, 132, 255, 0.3), inset 0 0 6px rgba(255,255,255,0.15)';
                     }}
                 >
-                    <span style={{ position: 'relative', zIndex: 1 }}>Sign in</span>
+                    <span style={{ position: 'relative', zIndex: 1 }}>{btnText}</span>
                 </button>
             </nav>
 
@@ -155,7 +179,7 @@ const Landing = () => {
                         >
                             Let’s Fly
                         </button>
-                            
+
                         {/* Modal */}
                         {showModal && (
                             <div
@@ -173,7 +197,7 @@ const Landing = () => {
                                     <div className="modal-content p-4 rounded-4 shadow-lg">
                                         <div className="modal-header border-0">
                                             <h5 className="modal-title" style={{ fontWeight: '700' }}>
-                                                 Quick Start Guide 📬
+                                                Quick Start Guide 📬
                                             </h5>
                                             <button
                                                 type="button"
@@ -183,7 +207,7 @@ const Landing = () => {
                                         </div>
                                         <div className="modal-body">
                                             <p style={{ fontSize: '1rem', color: '#333' }}>
-                                                 Welcome to PostBird! ✨<br /><br />
+                                                Welcome to PostBird! ✨<br /><br />
                                                 1️⃣ Integrate your frontend form.<br />
                                                 2️⃣ Set your EmailJS template and key.<br />
                                                 3️⃣ Hit send — your message flies.<br /><br />

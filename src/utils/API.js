@@ -15,17 +15,30 @@ const handleResponse = async (response) => {
         return { message: await response.text() }; 
     }
 };
+ 
+ // API.js
+export const getData = async (endpoint, token = null) => {
+  try {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
 
-// 🔎 GET Request
-export const getData = async (endpoint) => {
-    try {
-        const response = await fetch(`${BASE_URL}/${endpoint}`);
-        return await handleResponse(response);
-    } catch (error) {
-        console.error('GET error:', error.message);
-        throw error;
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
     }
+
+    const response = await fetch(`${BASE_URL}/${endpoint}`, {
+      method: 'GET',
+      headers: headers,
+    });
+
+    return await handleResponse(response);
+  } catch (error) {
+    console.error('GET error:', error.message);
+    throw error;
+  }
 };
+
 
 // 🚀 POST Request
 export const postData = async (endpoint, payload) => {
