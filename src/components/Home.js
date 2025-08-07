@@ -22,11 +22,10 @@ const Home = () => {
         <div className="card p-5 shadow-lg auth-card glass-card animate-fade-big">
           <div className="text-center mb-4">
             <h1 className="fw-bold text-primary">PostBird</h1>
-            <p className="text-muted">Delivering your digital messages with wings</p>
           </div>
 
           <div className="animate-fade">
-            <h2 className="text-center mb-4">Login</h2>
+            <h2 className="text-center mb-4">Token Generation</h2>
             <form onSubmit={handleLogin}>
               <input
                 type="text"
@@ -37,18 +36,9 @@ const Home = () => {
               />
 
               <div className="text-center">
-                <button type="submit" className="btn btn-outline-primary w-100">Sign In</button>
+                <button type="submit" className="btn btn-outline-primary w-100">Generate</button>
               </div>
             </form>
-
-            <div className="text-center mt-4">
-              <small>
-                Don't have an account?{' '}
-                <button className="btn btn-link p-0" onClick={() => setView('register')}>
-                  Register
-                </button>
-              </small>
-            </div>
           </div>
         </div>
       </div>
