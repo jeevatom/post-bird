@@ -23,7 +23,7 @@ const TokenGeneration = () => {
     const token = localStorage.getItem('token');
 
     try {
-      const response = await getData('mail/generatetoken', token);
+      const response = await getData('mail/generateToken', token);
       setMailtoken(response.token);
       showMessage('Token generated!');
       localStorage.setItem('mailToken', response.token)
