@@ -49,6 +49,7 @@ export default function OTPverification({ email, onSuccess,setIsLoading = () => 
       setVerifying(true);
       const payload = { username: email, otp: otpValue };
       const response = await postData('user/verifyotp', payload);
+      const responsejson = await response.json();
 
       console.log('OTP Response:', response);
 
